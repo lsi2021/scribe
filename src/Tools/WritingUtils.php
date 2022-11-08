@@ -58,7 +58,9 @@ class WritingUtils
                 } else {
                     // Hash query param (eg filter[name]=john should become "filter[name]": "john")
                     foreach ($value as $item => $itemValue) {
-                        $qs .= "$paramName" . '[' . urlencode($item) . ']=' . urlencode($itemValue) . '&';
+                        if(gettype($item) === 'string' && gettype($itemValue) === 'string') {
+                            $qs .= "$paramName" . '[' . urlencode($item) . ']=' . urlencode($itemValue) . '&';
+                        }
                     }
                 }
             }
@@ -116,8 +118,10 @@ class WritingUtils
                 } else {
                     // Hash query param (eg filter[name]=john should become "filter[name]": "john")
                     foreach ($value as $item => $itemValue) {
-                        $output .= str_repeat(" ", $spacesIndentation);
-                        $output .= "$startLinesWith$quote$parameter" . "[$item]$quote$delimiter $quote$itemValue$quote$endLinesWith\n";
+                        if(gettype($item) === 'string' && gettype($itemValue) === 'string') {
+                            $output .= str_repeat(" ", $spacesIndentation);
+                            $output .= "$startLinesWith$quote$parameter" . "[$item]$quote$delimiter $quote$itemValue$quote$endLinesWith\n";
+                        }
                     }
                 }
             }
