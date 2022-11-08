@@ -90,6 +90,11 @@ class OutputEndpointData extends BaseDTO
 
     public ?string $boundUri;
 
+    public $auth;
+    public $controller;
+    public $method;
+    public $route;
+
     public function __construct(array $parameters = [])
     {
         // spatie/dto currently doesn't auto-cast nested DTOs like that
